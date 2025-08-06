@@ -5,7 +5,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:3000' // Update with your frontend URL
+  origin: ['http://localhost:5500', 'http://127.0.0.1:5500'] // Update with your frontend URL
 }));
 app.use(express.json());
 
@@ -26,7 +26,7 @@ app.get('/api/test', (req, res) => {
 
 // Database sync and server start
 db.sequelize.sync().then(() => {
-  const PORT = process.env.PORT || 8000;
+  const PORT = process.env.PORT || 8080;
   app.listen(PORT,'0.0.0.0', () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
