@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Portfolio Management System</h1>
+        <div class="user-selector">
+            <label for="user-select">Select User: </label>
+            <select id="user-select">
+                <option value="">Loading users...</option>
+            </select>
+        </div>
+    </header>
+
+    <main>
+        <section id="portfolio-section" class="hidden">
+            <h2>Portfolio Assets</h2>
+            <button id="add-asset-btn" class="btn-primary">Add New Asset</button>
+            <div class="table-container">
+                <table id="assets-table">
+                    <thead>
+                        <tr>
+                            <th>Asset Name</th>
+                            <th>Current Value</th>
+                            <th>Quantity</th>
+                            <th>Total Value</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="assets-table-body">
+                        <!-- Will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="performance-section" class="hidden">
+            <h2>Portfolio Performance</h2>
+            <div class="chart-tabs">
+                <button class="tab-btn active" data-chart="pie">Asset Distribution</button>
+                <button class="tab-btn" data-chart="bar">Asset Values</button>
+            </div>
+            <div class="chart-container">
+                <canvas id="performance-chart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <!-- Asset Form Modal -->
+    <div id="asset-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modal-title">Add New Asset</h2>
+            <form id="asset-form">
+                <div class="form-group">
+                    <label for="asset-type">Asset Type:</label>
+                    <select id="asset-type" required>
+                        <option value="">Select type</option>
+                        <option value="stock">Stock</option>
+                        <option value="gold">Gold</option>
+                        <option value="cash">Cash</option>
+                        <option value="property">Property</option>
+                    </select>
+                </div>
+
+                <div id="stock-fields" class="asset-type-fields hidden">
+                    <div class="form-group">
+                        <label for="stock-symbol">Stock Symbol:</label>
+                        <input type="text" id="stock-symbol" placeholder="e.g., AAPL">
+                        <button type="button" id="fetch-price-btn" class="btn-secondary">Fetch Current Price</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="current-value">Current Value (per unit):</label>
+                    <input type="number" id="current-value" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" step="0.0001" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="total-value">Total Value:</label>
+                    <input type="number" id="total-value" readonly>
+                </div>
+
+                <input type="hidden" id="asset-id">
+                <input type="hidden" id="user-id">
+        
+
+                <div class="form-actions">
+                    <button type="button" id="cancel-btn" class="btn-secondary">Cancel</button>
+                    <button type="submit" id="save-btn" class="btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="api/mockData.js"></script>
+</body>
+</html>
